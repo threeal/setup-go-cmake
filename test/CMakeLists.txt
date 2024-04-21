@@ -12,12 +12,6 @@ function(add_cmake_test FILE)
 endfunction()
 
 add_cmake_test(
-  cmake/MkdirRecursiveTest.cmake
-  "Create directory recursively"
-  # Add more test cases here.
-)
-
-add_cmake_test(
   cmake/SetupGoTest.cmake
   "Set up the latest version of Go"
 )
