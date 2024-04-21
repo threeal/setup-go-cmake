@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.19)
+cmake_minimum_required(VERSION 3.29)
 
 project(
   SetupGo
@@ -31,7 +31,7 @@ if(NOT SUBPROJECT)
 
   install(
     FILES
-      cmake/MkdirRecursive.cmake
+      cmake/SetupGo.cmake
       cmake/SetupGoConfig.cmake
       ${CMAKE_CURRENT_BINARY_DIR}/SetupGoConfigVersion.cmake
     DESTINATION lib/cmake/SetupGo
