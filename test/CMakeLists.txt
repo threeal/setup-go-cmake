@@ -4,6 +4,7 @@ function(add_cmake_test FILE)
       NAME ${NAME}
       COMMAND ${CMAKE_COMMAND}
         -D CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}
+        -D CMAKE_BUILD_DIR=${CMAKE_CURRENT_SOURCE_DIR}/build
         -D TEST_MATCHES=^${NAME}$
         -P ${CMAKE_CURRENT_SOURCE_DIR}/${FILE}
     )
@@ -14,4 +15,9 @@ add_cmake_test(
   cmake/MkdirRecursiveTest.cmake
   "Create directory recursively"
   # Add more test cases here.
+)
+
+add_cmake_test(
+  cmake/SetupGoTest.cmake
+  "Set up the latest version of Go"
 )
