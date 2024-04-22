@@ -10,10 +10,20 @@ include_guard(GLOBAL)
 #
 # This function sets the `GO_EXECUTABLE` variable to the location of the Go executable.
 function(setup_go)
+  if(CMAKE_SYSTEM_NAME STREQUAL Linux)
+    set(URL https://go.dev/dl/go1.22.2.linux-amd64.tar.gz)
+    set(EXPECTED_MD5 f64eb5791a9dab9cbcdf6549b9583280)
+  elseif(CMAKE_SYSTEM_NAME STREQUAL Darwin)
+    set(URL https://go.dev/dl/go1.22.2.darwin-amd64.tar.gz)
+    set(EXPECTED_MD5 6a8e1186969f0ce1cc6fc2551d834c6b)
+  else()
+    message(FATAL_ERROR "Unsupported system for setting up Go: ${CMAKE_SYSTEM_NAME}")
+  endif()
+
   file(MAKE_DIRECTORY ${CMAKE_BUILD_DIR}/_deps)
   file(
-    DOWNLOAD https://go.dev/dl/go1.22.2.linux-amd64.tar.gz ${CMAKE_BUILD_DIR}/_deps/go.tar.gz
-    EXPECTED_MD5 f64eb5791a9dab9cbcdf6549b9583280
+    DOWNLOAD ${URL} ${CMAKE_BUILD_DIR}/_deps/go.tar.gz
+    EXPECTED_MD5 ${EXPECTED_MD5}
   )
 
   execute_process(
