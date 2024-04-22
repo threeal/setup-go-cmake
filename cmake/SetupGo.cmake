@@ -11,9 +11,9 @@ include_guard(GLOBAL)
 # This function sets the `GO_EXECUTABLE` variable to the location of the Go executable.
 function(setup_go)
   if(CMAKE_SYSTEM_NAME STREQUAL Windows)
-    set(GO_EXECUTABLE ${CMAKE_BUILD_DIR}/_deps/go/bin/go.exe)
+    set(GO_EXECUTABLE ${CMAKE_BINARY_DIR}/_deps/go/bin/go.exe)
   else()
-    set(GO_EXECUTABLE ${CMAKE_BUILD_DIR}/_deps/go/bin/go)
+    set(GO_EXECUTABLE ${CMAKE_BINARY_DIR}/_deps/go/bin/go)
   endif()
 
   if(NOT EXISTS ${GO_EXECUTABLE})
@@ -30,26 +30,26 @@ function(setup_go)
       message(FATAL_ERROR "Unsupported system for setting up Go: ${CMAKE_SYSTEM_NAME}")
     endif()
 
-    file(MAKE_DIRECTORY ${CMAKE_BUILD_DIR}/_deps)
+    file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/_deps)
     get_filename_component(FILENAME ${URL} NAME)
 
     # Download the Go build.
     file(
-      DOWNLOAD ${URL} ${CMAKE_BUILD_DIR}/_deps/${FILENAME}
+      DOWNLOAD ${URL} ${CMAKE_BINARY_DIR}/_deps/${FILENAME}
       EXPECTED_MD5 ${EXPECTED_MD5}
     )
 
     # Extract the Go build.
     execute_process(
-      COMMAND tar -xf ${CMAKE_BUILD_DIR}/_deps/${FILENAME} -C ${CMAKE_BUILD_DIR}/_deps
+      COMMAND tar -xf ${CMAKE_BINARY_DIR}/_deps/${FILENAME} -C ${CMAKE_BINARY_DIR}/_deps
       RESULT_VARIABLE RES
     )
     if(NOT RES EQUAL 0)
-      message(FATAL_ERROR "Failed to extract '${CMAKE_BUILD_DIR}/_deps/${FILENAME}' to '${CMAKE_BUILD_DIR}/_deps' (${RES})")
+      message(FATAL_ERROR "Failed to extract '${CMAKE_BINARY_DIR}/_deps/${FILENAME}' to '${CMAKE_BINARY_DIR}/_deps' (${RES})")
     endif()
 
     # Remove the downloaded Go build to free up space.
-    file(REMOVE ${CMAKE_BUILD_DIR}/_deps/${FILENAME})
+    file(REMOVE ${CMAKE_BINARY_DIR}/_deps/${FILENAME})
   endif()
 
   set(GO_EXECUTABLE ${GO_EXECUTABLE} PARENT_SCOPE)
