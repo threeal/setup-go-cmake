@@ -19,20 +19,16 @@ function(setup_go)
   if(NOT EXISTS ${GO_EXECUTABLE})
     if(CMAKE_SYSTEM_NAME STREQUAL Linux)
       set(URL https://go.dev/dl/go1.22.2.linux-amd64.tar.gz)
-      set(EXPECTED_MD5 f64eb5791a9dab9cbcdf6549b9583280)
     elseif(CMAKE_SYSTEM_NAME STREQUAL Darwin)
       if(CMAKE_SYSTEM_PROCESSOR STREQUAL x86_64)
         set(URL https://go.dev/dl/go1.22.2.darwin-amd64.tar.gz)
-        set(EXPECTED_MD5 6a8e1186969f0ce1cc6fc2551d834c6b)
       elseif(CMAKE_SYSTEM_PROCESSOR STREQUAL arm64)
         set(URL https://go.dev/dl/go1.22.2.darwin-arm64.tar.gz)
-        set(EXPECTED_MD5 e22bc1c8f6288159ee44ebe5823a3893)
       else()
         message(FATAL_ERROR "Unsupported architecture for setting up Go: ${CMAKE_SYSTEM_PROCESSOR}")
       endif()
     elseif(CMAKE_SYSTEM_NAME STREQUAL Windows)
       set(URL https://go.dev/dl/go1.22.2.windows-amd64.zip)
-      set(EXPECTED_MD5 125813601d166b742b5ab86d986be78c)
     else()
       message(FATAL_ERROR "Unsupported system for setting up Go: ${CMAKE_SYSTEM_NAME}")
     endif()
@@ -41,10 +37,7 @@ function(setup_go)
     get_filename_component(FILENAME ${URL} NAME)
 
     # Download the Go build.
-    file(
-      DOWNLOAD ${URL} ${CMAKE_BINARY_DIR}/_deps/${FILENAME}
-      EXPECTED_MD5 ${EXPECTED_MD5}
-    )
+    file(DOWNLOAD ${URL} ${CMAKE_BINARY_DIR}/_deps/${FILENAME})
 
     # Extract the Go build.
     execute_process(
