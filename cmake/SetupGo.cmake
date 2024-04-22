@@ -33,11 +33,13 @@ function(setup_go)
     file(MAKE_DIRECTORY ${CMAKE_BUILD_DIR}/_deps)
     get_filename_component(FILENAME ${URL} NAME)
 
+    # Download the Go build.
     file(
       DOWNLOAD ${URL} ${CMAKE_BUILD_DIR}/_deps/${FILENAME}
       EXPECTED_MD5 ${EXPECTED_MD5}
     )
 
+    # Extract the Go build.
     execute_process(
       COMMAND tar -xf ${CMAKE_BUILD_DIR}/_deps/${FILENAME} -C ${CMAKE_BUILD_DIR}/_deps
       RESULT_VARIABLE RES
@@ -45,6 +47,9 @@ function(setup_go)
     if(NOT RES EQUAL 0)
       message(FATAL_ERROR "Failed to extract '${CMAKE_BUILD_DIR}/_deps/${FILENAME}' to '${CMAKE_BUILD_DIR}/_deps' (${RES})")
     endif()
+
+    # Remove the downloaded Go build to free up space.
+    file(REMOVE ${CMAKE_BUILD_DIR}/_deps/${FILENAME})
   endif()
 
   set(GO_EXECUTABLE ${GO_EXECUTABLE} PARENT_SCOPE)
