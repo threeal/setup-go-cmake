@@ -21,17 +21,19 @@ function(setup_go)
   endif()
 
   file(MAKE_DIRECTORY ${CMAKE_BUILD_DIR}/_deps)
+  get_filename_component(FILENAME ${URL} NAME)
+
   file(
-    DOWNLOAD ${URL} ${CMAKE_BUILD_DIR}/_deps/go.tar.gz
+    DOWNLOAD ${URL} ${CMAKE_BUILD_DIR}/_deps/${FILENAME}
     EXPECTED_MD5 ${EXPECTED_MD5}
   )
 
   execute_process(
-    COMMAND tar -xf ${CMAKE_BUILD_DIR}/_deps/go.tar.gz -C ${CMAKE_BUILD_DIR}/_deps
+    COMMAND tar -xf ${CMAKE_BUILD_DIR}/_deps/${FILENAME} -C ${CMAKE_BUILD_DIR}/_deps
     RESULT_VARIABLE RES
   )
   if(NOT RES EQUAL 0)
-    message(FATAL_ERROR "Failed to extract '${CMAKE_BUILD_DIR}/_deps/go.tar.gz' to '${CMAKE_BUILD_DIR}/_deps' (${RES})")
+    message(FATAL_ERROR "Failed to extract '${CMAKE_BUILD_DIR}/_deps/${FILENAME}' to '${CMAKE_BUILD_DIR}/_deps' (${RES})")
   endif()
 
   set(GO_EXECUTABLE ${CMAKE_BUILD_DIR}/_deps/go/bin/go PARENT_SCOPE)
