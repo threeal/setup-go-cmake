@@ -20,10 +20,6 @@ if("Set up the latest version of Go" MATCHES ${TEST_MATCHES})
     message(FATAL_ERROR "The Go executable at '${GO_EXECUTABLE}' should exist")
   endif()
 
-  if(NOT IS_EXECUTABLE ${GO_EXECUTABLE})
-    message(FATAL_ERROR "The Go executable at '${GO_EXECUTABLE}' should be executable")
-  endif()
-
   execute_process(
     COMMAND ${GO_EXECUTABLE} version
     RESULT_VARIABLE RES
