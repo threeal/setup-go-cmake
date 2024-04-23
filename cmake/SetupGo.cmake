@@ -37,8 +37,9 @@ function(setup_go)
     set(PACKAGE_EXT .tar.gz)
   endif()
 
-  set(GO_PACKAGE go${VERSION}.${OS}-${ARCH}${PACKAGE_EXT})
-  set(GO_EXECUTABLE ${CMAKE_BINARY_DIR}/_deps/go/bin/go${EXECUTABLE_EXT})
+  set(GO_BUILD go${VERSION}.${OS}-${ARCH})
+  set(GO_PACKAGE ${GO_BUILD}${PACKAGE_EXT})
+  set(GO_EXECUTABLE ${CMAKE_BINARY_DIR}/_deps/${GO_BUILD}/go/bin/go${EXECUTABLE_EXT})
 
   if(NOT EXISTS ${GO_EXECUTABLE})
     # Download the Go build.
@@ -46,12 +47,13 @@ function(setup_go)
     file(DOWNLOAD https://go.dev/dl/${GO_PACKAGE} ${CMAKE_BINARY_DIR}/_deps/${GO_PACKAGE})
 
     # Extract the Go build.
+    file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/_deps/${GO_BUILD})
     execute_process(
-      COMMAND tar -xf ${CMAKE_BINARY_DIR}/_deps/${GO_PACKAGE} -C ${CMAKE_BINARY_DIR}/_deps
+      COMMAND tar -xf ${CMAKE_BINARY_DIR}/_deps/${GO_PACKAGE} -C ${CMAKE_BINARY_DIR}/_deps/${GO_BUILD}
       RESULT_VARIABLE RES
     )
     if(NOT RES EQUAL 0)
-      message(FATAL_ERROR "Failed to extract '${CMAKE_BINARY_DIR}/_deps/${GO_PACKAGE}' to '${CMAKE_BINARY_DIR}/_deps' (${RES})")
+      message(FATAL_ERROR "Failed to extract '${CMAKE_BINARY_DIR}/_deps/${GO_PACKAGE}' to '${CMAKE_BINARY_DIR}/_deps/${GO_BUILD}' (${RES})")
     endif()
 
     # Remove the downloaded Go build to free up space.
