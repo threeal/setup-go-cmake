@@ -23,9 +23,12 @@ if("Set up the latest version of Go" MATCHES ${TEST_MATCHES})
   execute_process(
     COMMAND ${GO_EXECUTABLE} version
     RESULT_VARIABLE RES
+    OUTPUT_VARIABLE OUT
   )
   if(NOT RES EQUAL 0)
     message(FATAL_ERROR "It should not fail to execute the Go executable")
+  elseif(NOT OUT MATCHES "^go version go1.22.2")
+    message(FATAL_ERROR "It should execute the version 1.22.1 of Go")
   endif()
 endif()
 
