@@ -16,4 +16,5 @@ endfunction()
 add_cmake_test(
   cmake/SetupGoTest.cmake
   "Set up the latest version of Go"
+  "Set up a specific version of Go"
 )

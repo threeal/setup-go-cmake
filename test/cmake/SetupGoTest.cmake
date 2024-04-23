@@ -37,6 +37,13 @@ if("Set up the latest version of Go" MATCHES ${TEST_MATCHES})
   assert_go_executable(VERSION 1.22.2)
 endif()
 
+if("Set up a specific version of Go" MATCHES ${TEST_MATCHES})
+  math(EXPR TEST_COUNT "${TEST_COUNT} + 1")
+
+  setup_go(VERSION 1.21.9)
+  assert_go_executable(VERSION 1.21.9)
+endif()
+
 if(TEST_COUNT LESS_EQUAL 0)
   message(FATAL_ERROR "Nothing to test with: ${TEST_MATCHES}")
 endif()
