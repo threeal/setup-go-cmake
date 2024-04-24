@@ -52,10 +52,12 @@ function(setup_go)
 
   if(NOT EXISTS ${GO_EXECUTABLE})
     # Download the Go build.
+    message(STATUS "SetupGo: Downloading https://go.dev/dl/${GO_PACKAGE}...")
     file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/_deps)
     file(DOWNLOAD https://go.dev/dl/${GO_PACKAGE} ${CMAKE_BINARY_DIR}/_deps/${GO_PACKAGE})
 
     # Extract the Go build.
+    message(STATUS "SetupGo: Extracting ${CMAKE_BINARY_DIR}/_deps/${GO_PACKAGE}...")
     file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/_deps/${GO_BUILD})
     execute_process(
       COMMAND tar -xf ${CMAKE_BINARY_DIR}/_deps/${GO_PACKAGE} -C ${CMAKE_BINARY_DIR}/_deps/${GO_BUILD}
