@@ -28,6 +28,24 @@ This module can be integrated into a CMake project in the following ways:
   include("${SetupGo_SOURCE_DIR}/cmake/SetupGo.cmake")
   ```
 
+## Example Usages
+
+This example demonstrates how to set up the latest version of Go to be used in a CMake project:
+
+```cmake
+setup_go()
+
+execute_process(COMMAND ${GO_EXECUTABLE} version)
+```
+
+### Specify Go Version
+
+Use the `VERSION` argument to specify the Go version to set up:
+
+```cmake
+setup_go(VERSION 1.21.9)
+```
+
 ## License
 
 This project is licensed under the terms of the [MIT License](./LICENSE).
