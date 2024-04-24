@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.19)
 
 project(
   SetupGo
-  VERSION 0.0.0
+  VERSION 1.0.0
   DESCRIPTION "Set up a specific version of Go from a CMake project"
   HOMEPAGE_URL https://github.com/threeal/setup-go-cmake
   LANGUAGES NONE
