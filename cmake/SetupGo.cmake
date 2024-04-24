@@ -3,14 +3,23 @@
 
 include_guard(GLOBAL)
 
-# Sets up the latest version of Go within this project.
+# Sets up a specific version of Go within this project.
 #
-# This function downloads the latest version of the Go build from the remote server, extracts it,
+# This function downloads a specific version of the Go build from the remote server, extracts it,
 # and makes it available in the project.
 #
+# If the version is not specified, it will download the latest version of the Go build.
+#
 # This function sets the `GO_EXECUTABLE` variable to the location of the Go executable.
+#
+# Optional arguments:
+#   - VERSION: The version of Go to set up.
 function(setup_go)
-  set(VERSION 1.22.2)
+  cmake_parse_arguments(ARG "" "VERSION" "" ${ARGN})
+
+  if(NOT DEFINED ARG_VERSION)
+    set(ARG_VERSION 1.22.2)
+  endif()
 
   if(CMAKE_SYSTEM_NAME STREQUAL Darwin)
     set(OS darwin)
@@ -37,7 +46,7 @@ function(setup_go)
     set(PACKAGE_EXT .tar.gz)
   endif()
 
-  set(GO_BUILD go${VERSION}.${OS}-${ARCH})
+  set(GO_BUILD go${ARG_VERSION}.${OS}-${ARCH})
   set(GO_PACKAGE ${GO_BUILD}${PACKAGE_EXT})
   set(GO_EXECUTABLE ${CMAKE_BINARY_DIR}/_deps/${GO_BUILD}/go/bin/go${EXECUTABLE_EXT})
 
