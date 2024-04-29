@@ -58,9 +58,13 @@ function(setup_go)
 
     # Extract the Go build.
     message(STATUS "SetupGo: Extracting ${CMAKE_BINARY_DIR}/_deps/${GO_PACKAGE}...")
+    find_program(TAR_EXECUTABLE tar)
+    if(TAR_EXECUTABLE STREQUAL TAR_EXECUTABLE-NOTFOUND)
+      message(FATAL_ERROR "Could not find the 'tar' program required to extract the Go package")
+    endif()
     file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/_deps/${GO_BUILD})
     execute_process(
-      COMMAND tar -xf ${CMAKE_BINARY_DIR}/_deps/${GO_PACKAGE} -C ${CMAKE_BINARY_DIR}/_deps/${GO_BUILD}
+      COMMAND ${TAR_EXECUTABLE} -xf ${CMAKE_BINARY_DIR}/_deps/${GO_PACKAGE} -C ${CMAKE_BINARY_DIR}/_deps/${GO_BUILD}
       RESULT_VARIABLE RES
     )
     if(NOT RES EQUAL 0)
