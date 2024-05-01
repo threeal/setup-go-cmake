@@ -1,10 +1,3 @@
-# Matches everything if not defined
-if(NOT TEST_MATCHES)
-  set(TEST_MATCHES ".*")
-endif()
-
-set(TEST_COUNT 0)
-
 include(SetupGo)
 
 function(assert_go_executable)
@@ -30,20 +23,20 @@ function(assert_go_executable)
   endif()
 endfunction()
 
-if("Set up the latest version of Go" MATCHES ${TEST_MATCHES})
-  math(EXPR TEST_COUNT "${TEST_COUNT} + 1")
-
+function(test_set_up_the_latest_version_of_go)
   setup_go()
   assert_go_executable(VERSION 1.22.2)
-endif()
+endfunction()
 
-if("Set up a specific version of Go" MATCHES ${TEST_MATCHES})
-  math(EXPR TEST_COUNT "${TEST_COUNT} + 1")
-
+function(test_set_up_a_specific_version_of_go)
   setup_go(VERSION 1.21.9)
   assert_go_executable(VERSION 1.21.9)
+endfunction()
+
+if(NOT DEFINED TEST_COMMAND)
+  message(FATAL_ERROR "The 'TEST_COMMAND' variable should be defined")
+elseif(NOT COMMAND test_${TEST_COMMAND})
+  message(FATAL_ERROR "Unable to find a command named 'test_${TEST_COMMAND}'")
 endif()
 
-if(TEST_COUNT LESS_EQUAL 0)
-  message(FATAL_ERROR "Nothing to test with: ${TEST_MATCHES}")
-endif()
+cmake_language(CALL test_${TEST_COMMAND})
