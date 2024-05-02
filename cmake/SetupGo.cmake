@@ -47,10 +47,10 @@ function(setup_go)
   endif()
 
   set(GO_BUILD go${ARG_VERSION}.${OS}-${ARCH})
-  set(GO_PACKAGE ${GO_BUILD}${PACKAGE_EXT})
+  set(GO_PACKAGE "${GO_BUILD}${PACKAGE_EXT}")
   set(GO_EXECUTABLE ${CMAKE_BINARY_DIR}/_deps/${GO_BUILD}/go/bin/go${EXECUTABLE_EXT})
 
-  if(NOT EXISTS ${GO_EXECUTABLE})
+  if(NOT EXISTS "${GO_EXECUTABLE}")
     # Download the Go build.
     message(STATUS "SetupGo: Downloading https://go.dev/dl/${GO_PACKAGE}...")
     file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/_deps)
@@ -64,7 +64,7 @@ function(setup_go)
     endif()
     file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/_deps/${GO_BUILD})
     execute_process(
-      COMMAND ${TAR_EXECUTABLE} -xf ${CMAKE_BINARY_DIR}/_deps/${GO_PACKAGE} -C ${CMAKE_BINARY_DIR}/_deps/${GO_BUILD}
+      COMMAND "${TAR_EXECUTABLE}" -xf ${CMAKE_BINARY_DIR}/_deps/${GO_PACKAGE} -C ${CMAKE_BINARY_DIR}/_deps/${GO_BUILD}
       RESULT_VARIABLE RES
     )
     if(NOT RES EQUAL 0)
@@ -75,5 +75,5 @@ function(setup_go)
     file(REMOVE ${CMAKE_BINARY_DIR}/_deps/${GO_PACKAGE})
   endif()
 
-  set(GO_EXECUTABLE ${GO_EXECUTABLE} PARENT_SCOPE)
+  set(GO_EXECUTABLE "${GO_EXECUTABLE}" PARENT_SCOPE)
 endfunction()
