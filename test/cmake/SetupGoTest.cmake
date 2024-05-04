@@ -7,12 +7,12 @@ function(assert_go_executable)
     message(FATAL_ERROR "The GO_EXECUTABLE variable should be defined")
   endif()
 
-  if(NOT EXISTS ${GO_EXECUTABLE})
+  if(NOT EXISTS "${GO_EXECUTABLE}")
     message(FATAL_ERROR "The Go executable at '${GO_EXECUTABLE}' should exist")
   endif()
 
   execute_process(
-    COMMAND ${GO_EXECUTABLE} version
+    COMMAND "${GO_EXECUTABLE}" version
     RESULT_VARIABLE RES
     OUTPUT_VARIABLE OUT
   )
