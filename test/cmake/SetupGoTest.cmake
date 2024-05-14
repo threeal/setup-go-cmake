@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.5)
+
 include(SetupGo)
 
 function(assert_go_executable)
