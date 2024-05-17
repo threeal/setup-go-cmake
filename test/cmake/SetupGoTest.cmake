@@ -23,20 +23,14 @@ function(assert_go_executable)
   endif()
 endfunction()
 
-function(test_set_up_the_latest_version_of_go)
+function("Set up the latest version of Go")
   setup_go()
   assert_go_executable(VERSION 1.22.2)
 endfunction()
 
-function(test_set_up_a_specific_version_of_go)
+function("Set up a specific version of Go")
   setup_go(VERSION 1.21.9)
   assert_go_executable(VERSION 1.21.9)
 endfunction()
 
-if(NOT DEFINED TEST_COMMAND)
-  message(FATAL_ERROR "The 'TEST_COMMAND' variable should be defined")
-elseif(NOT COMMAND test_${TEST_COMMAND})
-  message(FATAL_ERROR "Unable to find a command named 'test_${TEST_COMMAND}'")
-endif()
-
-cmake_language(CALL test_${TEST_COMMAND})
+cmake_language(CALL "${TEST_COMMAND}")
