@@ -1,38 +1,34 @@
 cmake_minimum_required(VERSION 3.5)
 
+file(
+  DOWNLOAD https://threeal.github.io/assertion-cmake/v0.2.0
+    ${CMAKE_BINARY_DIR}/Assertion.cmake
+  EXPECTED_MD5 4ee0e5217b07442d1a31c46e78bb5fac)
+include(${CMAKE_BINARY_DIR}/Assertion.cmake)
+
 include(SetupGo)
 
-function(assert_go_executable)
-  cmake_parse_arguments(ARG "" "VERSION" "" ${ARGN})
+# Asserts whether a Go executable exists with the specified version.
+#
+# Arguments:
+#   - VERSION: The expected version of the Go executable.
+function(assert_go_executable VERSION)
+  assert(DEFINED GO_EXECUTABLE)
+  assert(EXISTS "${GO_EXECUTABLE}")
 
-  if(NOT DEFINED GO_EXECUTABLE)
-    message(FATAL_ERROR "The GO_EXECUTABLE variable should be defined")
-  endif()
-
-  if(NOT EXISTS "${GO_EXECUTABLE}")
-    message(FATAL_ERROR "The Go executable at '${GO_EXECUTABLE}' should exist")
-  endif()
-
-  execute_process(
+  assert_execute_process(
     COMMAND "${GO_EXECUTABLE}" version
-    RESULT_VARIABLE RES
-    OUTPUT_VARIABLE OUT
-  )
-  if(NOT RES EQUAL 0)
-    message(FATAL_ERROR "It should not fail to execute the Go executable")
-  elseif(DEFINED ARG_VERSION AND NOT OUT MATCHES "^go version go${ARG_VERSION}")
-    message(FATAL_ERROR "It should execute the version ${ARG_VERSION} of Go")
-  endif()
+    OUTPUT "^go version go${VERSION}")
 endfunction()
 
 function("Set up the latest version of Go")
   setup_go()
-  assert_go_executable(VERSION 1.22.2)
+  assert_go_executable(1.22.2)
 endfunction()
 
 function("Set up a specific version of Go")
   setup_go(VERSION 1.21.9)
-  assert_go_executable(VERSION 1.21.9)
+  assert_go_executable(1.21.9)
 endfunction()
 
 cmake_language(CALL "${TEST_COMMAND}")
