@@ -15,7 +15,7 @@ include_guard(GLOBAL)
 # Optional arguments:
 #   - VERSION: The version of Go to set up.
 function(setup_go)
-  cmake_parse_arguments(ARG "" "VERSION" "" ${ARGN})
+  cmake_parse_arguments(PARSE_ARGV 0 ARG "" "VERSION" "")
 
   if(NOT DEFINED ARG_VERSION)
     set(ARG_VERSION 1.22.2)
