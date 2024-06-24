@@ -7,7 +7,6 @@ file(
 include(${CMAKE_BINARY_DIR}/Assertion.cmake)
 
 find_package(SetupGo REQUIRED PATHS ${CMAKE_CURRENT_LIST_DIR}/../../cmake)
-include(SetupGo)
 
 # Asserts whether a Go executable exists with the specified version.
 #
