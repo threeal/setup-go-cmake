@@ -25,7 +25,6 @@ This module can be integrated into a CMake project in the following ways:
 - Use [CPM.cmake](https://github.com/cpm-cmake/CPM.cmake) to add this package to the CMake project:
   ```cmake
   cpmaddpackage(gh:threeal/setup-go-cmake@1.0.0)
-  include(${SetupGo_SOURCE_DIR}/cmake/SetupGo.cmake)
   ```
 
 ## Example Usages

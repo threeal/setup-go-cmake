@@ -6,7 +6,7 @@ file(
   EXPECTED_MD5 4ee0e5217b07442d1a31c46e78bb5fac)
 include(${CMAKE_BINARY_DIR}/Assertion.cmake)
 
-include(SetupGo)
+find_package(SetupGo REQUIRED PATHS ${CMAKE_CURRENT_LIST_DIR}/../../cmake)
 
 # Asserts whether a Go executable exists with the specified version.
 #
