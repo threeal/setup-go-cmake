@@ -32,12 +32,13 @@ function(setup_go)
       "${CMAKE_HOST_SYSTEM_NAME}")
   endif()
 
-  if(CMAKE_SYSTEM_PROCESSOR STREQUAL x86_64 OR CMAKE_SYSTEM_PROCESSOR STREQUAL AMD64)
+  if(CMAKE_HOST_SYSTEM_PROCESSOR MATCHES x86_64|AMD64)
     set(ARCH amd64)
-  elseif(CMAKE_SYSTEM_PROCESSOR STREQUAL arm64)
+  elseif(CMAKE_HOST_SYSTEM_PROCESSOR STREQUAL arm64)
     set(ARCH arm64)
   else()
-    message(FATAL_ERROR "Unsupported architecture for setting up Go: ${CMAKE_SYSTEM_PROCESSOR}")
+    message(FATAL_ERROR "Unsupported architecture for setting up Go: "
+      "${CMAKE_HOST_SYSTEM_PROCESSOR}")
   endif()
 
   if(OS STREQUAL windows)
