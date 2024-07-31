@@ -18,7 +18,7 @@ function(setup_go)
   cmake_parse_arguments(PARSE_ARGV 0 ARG "" "VERSION" "")
 
   if(NOT DEFINED ARG_VERSION)
-    set(ARG_VERSION 1.22.2)
+    set(ARG_VERSION 1.22.5)
   endif()
 
   if(CMAKE_HOST_SYSTEM_NAME STREQUAL Darwin)
