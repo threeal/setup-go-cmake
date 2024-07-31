@@ -16,7 +16,12 @@ include(cmake/SetupGo.cmake)
 
 if(SETUP_GO_ENABLE_TESTS)
   enable_testing()
-  add_subdirectory(test)
+
+  add_test(
+    NAME test/setup_go.cmake
+    COMMAND "${CMAKE_COMMAND}"
+      -D CMAKE_BINARY_DIR=${CMAKE_CURRENT_SOURCE_DIR}/build
+      -P ${CMAKE_CURRENT_SOURCE_DIR}/test/setup_go.cmake)
 endif()
 
 if(SETUP_GO_ENABLE_INSTALL)

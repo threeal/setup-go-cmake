@@ -6,7 +6,7 @@ file(
   EXPECTED_MD5 1d8ec589d6cc15772581bf77eb3873ff)
 include(${CMAKE_BINARY_DIR}/Assertion.cmake)
 
-find_package(SetupGo REQUIRED PATHS ${CMAKE_CURRENT_LIST_DIR}/../../cmake)
+find_package(SetupGo REQUIRED PATHS ${CMAKE_CURRENT_LIST_DIR}/../cmake)
 
 section("it should set up the latest version of Go")
   setup_go()
