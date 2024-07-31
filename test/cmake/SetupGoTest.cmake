@@ -21,14 +21,12 @@ function(assert_go_executable VERSION)
     OUTPUT "^go version go${VERSION}")
 endfunction()
 
-function("Set up the latest version of Go")
+section("it should set up the latest version of Go")
   setup_go()
   assert_go_executable(1.22.5)
-endfunction()
+endsection()
 
-function("Set up a specific version of Go")
+section("it should set up a specific version of Go")
   setup_go(VERSION 1.21.9)
   assert_go_executable(1.21.9)
-endfunction()
-
-cmake_language(CALL "${TEST_COMMAND}")
+endsection()
