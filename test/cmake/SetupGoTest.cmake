@@ -23,7 +23,7 @@ endfunction()
 
 function("Set up the latest version of Go")
   setup_go()
-  assert_go_executable(1.22.2)
+  assert_go_executable(1.22.5)
 endfunction()
 
 function("Set up a specific version of Go")
