@@ -41,4 +41,7 @@ if(SETUP_GO_ENABLE_INSTALL)
       ${CMAKE_CURRENT_BINARY_DIR}/SetupGoConfigVersion.cmake
     DESTINATION lib/cmake/SetupGo
   )
+
+  set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}")
+  include(CPack)
 endif()
