@@ -14,20 +14,19 @@ option(
 
 list(PREPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
+# Prefer system packages over the find modules provided by this project.
+if(NOT DEFINED CMAKE_FIND_PACKAGE_PREFER_CONFIG)
+  set(CMAKE_FIND_PACKAGE_PREFER_CONFIG TRUE)
+endif()
+
 # Include the main module.
 include(SetupGo)
 
 if(SETUP_GO_ENABLE_TESTS)
   enable_testing()
 
-  file(
-    DOWNLOAD https://github.com/threeal/assertion-cmake/releases/download/v2.0.0/Assertion.cmake
-      ${CMAKE_BINARY_DIR}/cmake/Assertion.cmake
-    EXPECTED_MD5 5ebe475aee6fc5660633152f815ce9f6)
-  include(${CMAKE_BINARY_DIR}/cmake/Assertion.cmake)
-
-  add_cmake_script_test(test/setup_go.cmake
-    DEFINITIONS CMAKE_MODULE_PATH=${CMAKE_BINARY_DIR}/cmake)
+  find_package(Assertion 2.0.0 REQUIRED)
+  add_cmake_script_test(test/setup_go.cmake DEFINITIONS CMAKE_MODULE_PATH)
 endif()
 
 if(SETUP_GO_ENABLE_INSTALL)
