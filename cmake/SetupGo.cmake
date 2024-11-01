@@ -20,8 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-include_guard(GLOBAL)
-
 # Sets up a specific version of Go within this project.
 #
 # This function downloads a specific version of the Go build from the remote server, extracts it,
