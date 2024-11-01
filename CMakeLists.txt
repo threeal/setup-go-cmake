@@ -5,12 +5,11 @@ project(
   VERSION 1.0.0
   DESCRIPTION "Set up a specific version of Go from a CMake project"
   HOMEPAGE_URL https://github.com/threeal/setup-go-cmake
-  LANGUAGES NONE
-)
+  LANGUAGES NONE)
 
 option(SETUP_GO_ENABLE_TESTS "Enable test targets.")
-option(
-  SETUP_GO_ENABLE_INSTALL "Enable install targets." "${PROJECT_IS_TOP_LEVEL}")
+option(SETUP_GO_ENABLE_INSTALL
+  "Enable install targets." "${PROJECT_IS_TOP_LEVEL}")
 
 list(PREPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 

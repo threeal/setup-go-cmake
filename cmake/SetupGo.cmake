@@ -97,8 +97,7 @@ function(setup_go)
     file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/_deps/${GO_BUILD})
     execute_process(
       COMMAND "${TAR_EXECUTABLE}" -xf ${CMAKE_BINARY_DIR}/_deps/${GO_PACKAGE} -C ${CMAKE_BINARY_DIR}/_deps/${GO_BUILD}
-      RESULT_VARIABLE RES
-    )
+      RESULT_VARIABLE RES)
     if(NOT RES EQUAL 0)
       message(FATAL_ERROR "Failed to extract '${CMAKE_BINARY_DIR}/_deps/${GO_PACKAGE}' to '${CMAKE_BINARY_DIR}/_deps/${GO_BUILD}' (${RES})")
     endif()
