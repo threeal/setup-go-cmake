@@ -17,13 +17,13 @@ This module can be integrated into a CMake project in the following ways:
 - Use [`file(DOWNLOAD)`](https://cmake.org/cmake/help/latest/command/file.html#download) to automatically download the `SetupGo.cmake` file:
   ```cmake
   file(
-    DOWNLOAD https://github.com/threeal/setup-go-cmake/releases/download/v1.0.0/SetupGo.cmake
+    DOWNLOAD https://github.com/threeal/setup-go-cmake/releases/download/v1.1.0/SetupGo.cmake
       ${CMAKE_BINARY_DIR}/SetupGo.cmake)
   include(${CMAKE_BINARY_DIR}/SetupGo.cmake)
   ```
 - Use [CPM.cmake](https://github.com/cpm-cmake/CPM.cmake) to add this package to the CMake project:
   ```cmake
-  cpmaddpackage(gh:threeal/setup-go-cmake@1.0.0)
+  cpmaddpackage(gh:threeal/setup-go-cmake@1.1.0)
   ```
 
 ## Example Usages
