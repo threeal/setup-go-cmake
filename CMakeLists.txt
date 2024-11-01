@@ -12,7 +12,10 @@ option(SETUP_GO_ENABLE_TESTS "Enable test targets.")
 option(
   SETUP_GO_ENABLE_INSTALL "Enable install targets." "${PROJECT_IS_TOP_LEVEL}")
 
-include(cmake/SetupGo.cmake)
+list(PREPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
+# Include the main module.
+include(SetupGo)
 
 if(SETUP_GO_ENABLE_TESTS)
   enable_testing()
@@ -29,7 +32,8 @@ endif()
 
 if(SETUP_GO_ENABLE_INSTALL)
   file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/cmake/SetupGoConfig.cmake
-    "include(\${CMAKE_CURRENT_LIST_DIR}/SetupGo.cmake)\n")
+    "list(PREPEND CMAKE_MODULE_PATH \${CMAKE_CURRENT_LIST_DIR})\n"
+    "include(SetupGo)\n")
 
   include(CMakePackageConfigHelpers)
   write_basic_package_version_file(cmake/SetupGoConfigVersion.cmake
