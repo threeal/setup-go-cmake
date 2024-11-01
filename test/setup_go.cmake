@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 include(Assertion)
-find_package(SetupGo REQUIRED PATHS ${CMAKE_CURRENT_LIST_DIR}/../cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/../cmake/SetupGo.cmake)
 
 section("it should set up the latest version of Go")
   setup_go()

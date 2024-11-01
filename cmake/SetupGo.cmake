@@ -20,8 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-include_guard(GLOBAL)
-
 # Sets up a specific version of Go within this project.
 #
 # This function downloads a specific version of the Go build from the remote server, extracts it,
@@ -97,8 +95,7 @@ function(setup_go)
     file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/_deps/${GO_BUILD})
     execute_process(
       COMMAND "${TAR_EXECUTABLE}" -xf ${CMAKE_BINARY_DIR}/_deps/${GO_PACKAGE} -C ${CMAKE_BINARY_DIR}/_deps/${GO_BUILD}
-      RESULT_VARIABLE RES
-    )
+      RESULT_VARIABLE RES)
     if(NOT RES EQUAL 0)
       message(FATAL_ERROR "Failed to extract '${CMAKE_BINARY_DIR}/_deps/${GO_PACKAGE}' to '${CMAKE_BINARY_DIR}/_deps/${GO_BUILD}' (${RES})")
     endif()
