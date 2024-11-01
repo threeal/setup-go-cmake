@@ -28,19 +28,18 @@ if(SETUP_GO_ENABLE_TESTS)
 endif()
 
 if(SETUP_GO_ENABLE_INSTALL)
+  file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/cmake/SetupGoConfig.cmake
+    "include(\${CMAKE_CURRENT_LIST_DIR}/SetupGo.cmake)\n")
+
   include(CMakePackageConfigHelpers)
-  write_basic_package_version_file(
-    SetupGoConfigVersion.cmake
-    COMPATIBILITY SameMajorVersion
-  )
+  write_basic_package_version_file(cmake/SetupGoConfigVersion.cmake
+    COMPATIBILITY SameMajorVersion ARCH_INDEPENDENT)
 
   install(
-    FILES
-      cmake/SetupGo.cmake
-      cmake/SetupGoConfig.cmake
-      ${CMAKE_CURRENT_BINARY_DIR}/SetupGoConfigVersion.cmake
-    DESTINATION lib/cmake/SetupGo
-  )
+    FILES cmake/SetupGo.cmake
+      ${CMAKE_CURRENT_BINARY_DIR}/cmake/SetupGoConfig.cmake
+      ${CMAKE_CURRENT_BINARY_DIR}/cmake/SetupGoConfigVersion.cmake
+    DESTINATION lib/cmake/SetupGo)
 
   set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}")
   include(CPack)
